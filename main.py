@@ -3,10 +3,12 @@ import numpy as np
 from tqdm import tqdm
 import random
 import string
+from essential_generators import DocumentGenerator
 
 # 读取图像
 img = cv2.imread("chicken.jpg")
 cxk = cv2.imread("cxk.jpg")
+gen=DocumentGenerator()
 
 # 设置视频信息，如分辨率、帧率、视频编码器
 height, width, channels = img.shape
@@ -16,8 +18,8 @@ video_writer = cv2.VideoWriter("video.mp4", fourcc, 10, (width, height))
 
 total_frames = 60*60*10
 pos=(random.randint(0,20),random.randint(0,height-1))
-value = ''.join(random.sample(string.ascii_letters + string.digits, 20))
-color=(random.randint(0,100),random.randint(0,100),random.randint(0,100))
+value = gen.sentence()
+color=(random.randint(0,150),random.randint(0,150),random.randint(0,150))
 
 # 添加随机噪声并写入每一帧
 for i in tqdm(range(total_frames)):
@@ -27,9 +29,9 @@ for i in tqdm(range(total_frames)):
         frame=img.copy()
         if i%30==0:
             pos=(random.randint(0,20),random.randint(0,height-1))
-            value = ''.join(random.sample(string.ascii_letters + string.digits, 20))
-            color=(random.randint(0,100),random.randint(0,100),random.randint(0,100))
-        cv2.putText(frame,value,pos,cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,2.0, color, 5, cv2.LINE_AA, False)
+            value = gen.sentence()
+            color=(random.randint(0,150),random.randint(0,150),random.randint(0,150))
+        cv2.putText(frame,value,pos,cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,1.5, color, 5, cv2.LINE_AA, False)
         noise = np.random.rand(*img.shape) * 80
         frame = np.clip(frame - noise, 0, 255).astype(np.uint8)
         noise = np.random.rand(*img.shape) * 80
