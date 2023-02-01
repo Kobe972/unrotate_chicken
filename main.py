@@ -16,7 +16,7 @@ cxk=cv2.resize(cxk,(width,height),interpolation=cv2.INTER_AREA)
 fourcc = cv2.VideoWriter_fourcc(*'mp4v') 
 video_writer = cv2.VideoWriter("video.mp4", fourcc, 10, (width, height))
 
-total_frames = 60*60*10
+total_frames = 90*60*10
 pos=(random.randint(0,20),random.randint(0,height-1))
 value = gen.sentence()
 color=(random.randint(0,150),random.randint(0,150),random.randint(0,150))
