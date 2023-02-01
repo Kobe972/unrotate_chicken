@@ -28,7 +28,8 @@ for i in tqdm(range(total_frames)):
         if i%30==0:
             pos=(random.randint(0,20),random.randint(0,height-1))
             value = ''.join(random.sample(string.ascii_letters + string.digits, 20))
-        cv2.putText(frame,value,pos,cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,2.0, (0, 0, 0), 5, cv2.LINE_AA, False)
+            color=(random.randint(0,100),random.randint(0,100),random.randint(0,100))
+        cv2.putText(frame,value,pos,cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,2.0, color, 5, cv2.LINE_AA, False)
         noise = np.random.rand(*img.shape) * 80
         frame = np.clip(frame - noise, 0, 255).astype(np.uint8)
         noise = np.random.rand(*img.shape) * 80
